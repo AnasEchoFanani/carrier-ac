@@ -9,11 +9,11 @@ Most Carrier indoor units that pair with **Carrier Home**, **NetHome Plus**, or 
 - a dashboard at `http://127.0.0.1:43147`
 - a CLI, `carrier-ac`
 
-After a newer V3 stick fetches its token once (via NetHome), commands stay on your LAN.
+After a newer V3 stick fetches its token once (via NetHome), commands stay on your LAN. No Carrier cloud account is required for day-to-day control.
 
 ## Download onto your PC (GitHub folder)
 
-On Arch Linux:
+On Arch Linux, clone this repo into your GitHub folder, then install and run it:
 
 ```bash
 sudo pacman -S --needed git python python-pip nodejs npm
@@ -32,15 +32,26 @@ pnpm dev
 
 Open http://127.0.0.1:43147
 
-Scan for a real unit:
+If you keep clones somewhere else (`~/Documents/GitHub`, `~/src`), change `~/GitHub` above.
+
+To talk to a real indoor unit on the same Wi-Fi:
 
 ```bash
 uv run --directory server carrier-ac discover
 uv run --directory server carrier-ac add 192.168.1.50 --name Bedroom
 ```
 
-Demo without hardware:
+To try the dashboard without hardware:
 
 ```bash
 pnpm dev:demo
 ```
+
+## CLI
+
+```bash
+uv run --directory server carrier-ac status
+uv run --directory server carrier-ac set --power on --mode cool --temp 24 --fan auto
+```
+
+Saved units live in `~/.config/carrier-ac/devices.json`.
