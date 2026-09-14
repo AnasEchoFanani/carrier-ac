@@ -1,0 +1,15 @@
+[Unit]
+Description=Carrier AC local LAN API
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/src/carrier-ac/server
+Environment=CARRIER_AC_DEMO=0
+ExecStart=%h/.local/bin/uv run carrier-ac serve --host 127.0.0.1 --port 43148
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target
